@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jy.s4.board.BoardDTO;
@@ -18,6 +19,7 @@ public class QnACotroller {
 	@Autowired
 	private QnAService qnaService;
 	
+	//@RequestMapping(value="qnaReply", method=RequestMethod.POST)
 	@PostMapping("qnaReply")
 	public ModelAndView setReply(BoardDTO boardDTO) throws Exception{
 		ModelAndView mv = new ModelAndView();

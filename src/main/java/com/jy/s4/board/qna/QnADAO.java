@@ -14,7 +14,7 @@ import com.jy.s4.util.Pager;
 public class QnADAO implements BoardDAO {
 	@Autowired
 	private SqlSession sqlSession;
-	private final String NAMESPACE ="com.jy.s4.board.qna.QnADAO";
+	private final String NAMESPACE ="com.jy.s4.board.qna.QnADAO.";
 	
 	@Override
 	public int setInsert(BoardDTO boardDTO) throws Exception {

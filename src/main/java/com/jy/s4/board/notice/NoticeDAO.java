@@ -14,7 +14,7 @@ import com.jy.s4.util.Pager;
 public class NoticeDAO implements BoardDAO{
 	@Autowired
 	private SqlSession sqlSession;
-	private	final String NAMESPACE="com.jy.s4.board.notice.NoticeDAO";
+	private	final String NAMESPACE="com.jy.s4.board.notice.NoticeDAO.";
 	
 	@Override
 	public int setInsert(BoardDTO boardDTO) throws Exception {

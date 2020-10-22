@@ -12,7 +12,7 @@
 <c:import url="../template/header.jsp"></c:import>
 	
 	<div class="container">
-  <h1>NOTICE LIST JSP PAGE</h1>
+  <h1>${board} LIST JSP PAGE</h1>
   <!-- ****************검색 search 기능 ***************** -->
    <div class="row">
   <div class="col-sm-5">
@@ -53,7 +53,9 @@
  	<td>${ar.num } : ${vs.first}</td>
   	<td>
   	<a href="./${board}Select?num=${ar.num}">
+  	<c:catch> <!-- try/catch 같은거, 예외발생해도 그냥 진행하도록 해줌. -->
   	<c:forEach begin="1" end="${ar.depth}">--</c:forEach>
+  	</c:catch>
   	 ${ar.title }</a>
   	</td>
   	<td>${ar.writer }</td>

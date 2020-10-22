@@ -17,7 +17,7 @@ public class QnAService implements BoardDAO{
 	@Override
 	public int setInsert(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return qnaDAO.setInsert(boardDTO);
 	}
 
 	@Override

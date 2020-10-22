@@ -15,7 +15,7 @@
 	<!-- sql문 만들기 : db연결정보, sql문의 위치 정보를 합치는 작업 -->
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
 			<property name="dataSource" ref="dataSource"></property>
-			<property name="mapperLocations" value="classpath:database/**/*Mapper.xml"></property>	
+			<property name="mapperLocations" value="classpath:database/mappers/**/*Mapper.xml"></property>	
 			<property name="configLocation" value="classpath:database/config/mybatisConfig.xml"></property>
 	</bean>	
 		

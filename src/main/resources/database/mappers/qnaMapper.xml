@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
   <mapper namespace="com.jy.s4.board.qna.QnADAO">
- 	<delete id="qnaDelete" parameterType="QnADTO">
+ 	<delete id="setDelete" parameterType="QnADTO">
  		delete qna where num = #{num}
  	</delete> 
   	
@@ -12,11 +12,11 @@
   		update qna set step=step+1 where ref=#{ref} and step>#{step} 
   	</update>
   	
-  	<update id="qnaUpdate" parameterType="QnADTO">
+  	<update id="setUpdate" parameterType="QnADTO">
   		update qna set title=#{title}, contents=#{contents} where num=#{num}
   	</update>
   
-  	<insert id="qnaWrite" parameterType="QnADTO">
+  	<insert id="setInsert" parameterType="QnADTO">
 		insert into qna values(qna_seq.nextval, #{title}, #{writer}, #{contents}, sysdate, 0, qna_seq.currval, 0, 0)
 	</insert>
   	
@@ -25,11 +25,11 @@
   		, #{title}, #{writer}, #{contents}, sysdate, 0, #{ref}, #{step}, #{depth})
   	</insert>
   	
-  	<select id="qnaSelect" parameterType="QnADTO" resultType="QnADTO">
+  	<select id="getOne" parameterType="QnADTO" resultType="QnADTO">
 		select * from qna where num = #{num}
   	</select>
   
-    <select id="qnaList" resultType="QnADTO" parameterType="Pager">
+    <select id="getList" resultType="QnADTO" parameterType="Pager">
 		select * from
 		(select rownum R, N.* from 
 		(select * from qna where 
@@ -50,7 +50,7 @@
 		where R between #{startRow} and #{lastRow}	
     </select>
     
-    <select id="qnaCount" parameterType="Pager" resultType="Long">
+    <select id="getCount" parameterType="Pager" resultType="Long">
     	select count(num) from qna
 		where 
 		<choose>

@@ -5,7 +5,9 @@
   
   <configuration>
   	<typeAliases>
-  		
+  		<typeAlias type="com.jy.s4.board.qna.QnADTO" alias="QnADTO"/>
+  		<typeAlias type="com.jy.s4.board.notice.NoticeDTO" alias="NoticeDTO"/>
+  		<typeAlias type="com.jy.s4.util.Pager" alias="Pager"/>
   		<typeAlias type="java.lang.Long" alias="Long" />
   	
   	

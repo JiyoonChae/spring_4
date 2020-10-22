@@ -9,7 +9,7 @@ public interface BoardDAO {
 	
 	//DAO 공통기능 
 	//insert - abstract안써주면 자동입력됨..
-	public abstract int setInsert(BoardDTO boardDTO) throws Exception;
+	public int setInsert(BoardDTO boardDTO) throws Exception;
 	
 	//update
 	public int setUpdate(BoardDTO boardDTO) throws Exception;

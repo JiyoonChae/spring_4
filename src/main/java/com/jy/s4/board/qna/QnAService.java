@@ -14,6 +14,14 @@ public class QnAService implements BoardDAO{
 	@Autowired
 	private QnADAO qnaDAO;
 	
+	//여기가 더 짧은 대신 쿼리문이 길어졌음.. 두개중 속도가 빠른거 선택하면됨.
+	//이방법이 더 맥락이있긴함. db컴이 따로있으니까 일을 분산시키는게 좋음.
+	public int setReply(BoardDTO boardDTO) throws Exception{
+		int result = qnaDAO.setReplyUpdate(boardDTO);
+		result = qnaDAO.setReply(boardDTO);
+		return result;
+	}
+	
 	@Override
 	public int setInsert(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
@@ -43,7 +51,7 @@ public class QnAService implements BoardDAO{
 	@Override
 	public BoardDTO getOne(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return qnaDAO.getOne(boardDTO);
 	}
 
 	@Override

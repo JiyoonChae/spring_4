@@ -16,6 +16,15 @@ public class QnADAO implements BoardDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE ="com.jy.s4.board.qna.QnADAO.";
 	
+	public int setReply(BoardDTO boardDTO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"setReply", boardDTO);
+	}
+	
+	public int setReplyUpdate(BoardDTO boardDTO) throws Exception{
+		return sqlSession.update(NAMESPACE+"setReplyUpdate", boardDTO);
+	}
+	
+	
 	@Override
 	public int setInsert(BoardDTO boardDTO) throws Exception {
 		
@@ -43,7 +52,7 @@ public class QnADAO implements BoardDAO {
 	@Override
 	public BoardDTO getOne(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(NAMESPACE+"getOne", boardDTO);
 	}
 
 	@Override

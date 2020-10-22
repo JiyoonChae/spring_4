@@ -8,8 +8,11 @@
  		delete qna where num = #{num}
  	</delete> 
   	
-  	<update id="qnaReplyUpdate" parameterType="QnADTO">
-  		update qna set step=step+1 where ref=#{ref} and step>#{step} 
+  	<update id="setReplyUpdate" parameterType="QnADTO">
+  		update qna set step=step+1 where 
+  		ref=(select ref from qna where num = #{num})
+  		and 
+  		step> (select step from qna where num = #{num}) 
   	</update>
   	
   	<update id="setUpdate" parameterType="QnADTO">
@@ -20,9 +23,12 @@
 		insert into qna values(qna_seq.nextval, #{title}, #{writer}, #{contents}, sysdate, 0, qna_seq.currval, 0, 0)
 	</insert>
   	
-  	<insert id="qnaReply" parameterType="QnADTO">
+  	<insert id="setReply" parameterType="QnADTO">
   		insert into qna values(qna_seq.nextval
-  		, #{title}, #{writer}, #{contents}, sysdate, 0, #{ref}, #{step}, #{depth})
+  		, #{title}, #{writer}, #{contents}, sysdate, 0, 
+  		(select ref from qna where num=#{num}), 
+  		(select step+1 from qna where num=#{num}), 
+  		(select depth+1 from qna where num=#{num}))
   	</insert>
   	
   	<select id="getOne" parameterType="QnADTO" resultType="QnADTO">

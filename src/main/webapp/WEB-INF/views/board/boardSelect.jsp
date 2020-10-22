@@ -20,11 +20,13 @@
 		
 		
 	<input type="button" title="${dto.num}" value="update" class="btn btn-info" id="update">
-	<input type="button" title="${dto.num}" value="delete" class="btn btn-warning" id="del">
+	
+	<a href="./${board}Delete?num=${dto.num }" class="btn btn-warning">Delete</a>
 	<c:if test="${board ne 'notice'}">
 	<a href="./${board}Reply?num=${dto.num }" class="btn btn-primary">Reply</a>
 		</c:if>
 	</div>
 
+	
 </body>
 </html>

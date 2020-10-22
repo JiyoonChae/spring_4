@@ -25,7 +25,8 @@ public class NoticeDAO implements BoardDAO{
 	@Override
 	public int setUpdate(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		System.out.println(boardDTO.getNum());
+		return sqlSession.delete(NAMESPACE+"setDelete", boardDTO);
 	}
 
 	@Override

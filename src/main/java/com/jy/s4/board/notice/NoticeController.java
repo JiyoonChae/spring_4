@@ -18,6 +18,23 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
+	@GetMapping("noticeDelete")
+	public ModelAndView setDelete(BoardDTO boardDTO) throws Exception {
+		int result = noticeService.setDelete(boardDTO);
+		
+		ModelAndView mv = new ModelAndView();
+		String message = "Delete fail";
+		if(result>0) {
+			message = "Delete success";
+		}
+		mv.addObject("msg", message);
+		mv.addObject("path", "./noticeList");
+		
+		mv.setViewName("common/result");
+	
+		return mv;
+	}
+	
 	@GetMapping("noticeSelect")
 	public ModelAndView getOne(BoardDTO boardDTO) throws Exception {
 		boardDTO = noticeService.getOne(boardDTO);

@@ -17,12 +17,21 @@ public class QnACotroller {
 	@Autowired
 	private QnAService qnaService;
 	
+	@GetMapping("qnaWrite")
+	public ModelAndView setInsert() throws Exception{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("board/boardWrite");
+		mv.addObject("board", "qna");
+		return mv;
+	}
+	
 	@GetMapping("qnaList")
 	public ModelAndView getList(Pager pager) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
 		List<BoardDTO> ar = qnaService.getList(pager);
-		mv.addObject("board", ar);
+		mv.addObject("list", ar);
+		mv.addObject("board", "qna");
 		mv.addObject("pager", pager);
 		System.out.println("qna list");
 		mv.setViewName("board/boardList");

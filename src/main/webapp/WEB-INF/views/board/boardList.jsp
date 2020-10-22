@@ -48,10 +48,14 @@
   		<td>Hit</td>
   	</tr>
   	
-  <c:forEach items="${board}" var="ar" varStatus="vs">
+  <c:forEach items="${list}" var="ar" varStatus="vs">
   <tr>
  	<td>${ar.num } : ${vs.first}</td>
-  	<td><a href="./${board}Select?num=${ar.num}"> ${ar.title }</a></td>
+  	<td>
+  	<a href="./${board}Select?num=${ar.num}">
+  	<c:forEach begin="1" end="${ar.depth}">--</c:forEach>
+  	 ${ar.title }</a>
+  	</td>
   	<td>${ar.writer }</td>
     <td>${ar.contents }</td>
   	<td>${ar.regDate }</td>

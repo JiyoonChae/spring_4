@@ -2,6 +2,7 @@ package com.jy.s4.board.qna;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +34,10 @@ public class QnAService implements BoardDAO{
 
 	@Override
 	public List<BoardDTO> getList(Pager pager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		pager.makeRow();
+		pager.setTotalCount(qnaDAO.getCount(pager));
+		pager.makePage();
+		return qnaDAO.getList(pager);
 	}
 
 	@Override

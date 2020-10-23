@@ -10,7 +10,8 @@
   		<typeAlias type="com.jy.s4.util.Pager" alias="Pager"/>
   		<typeAlias type="com.jy.s4.board.BoardDTO" alias="BoardDTO"/>
   		<typeAlias type="java.lang.Long" alias="Long" />
-  	
+  		<typeAlias type="com.jy.s4.member.MemberDTO" alias="MemberDTO"/>
+  		<typeAlias type="com.jy.s4.member.memberUser.MemberUserDTO" alias="MemberUserDTO"/>
   	
   	</typeAliases>
   

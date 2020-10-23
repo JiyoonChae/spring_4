@@ -1,5 +1,7 @@
 package com.jy.s4.member.memberUser;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,6 +14,17 @@ public class MemberUserDAO implements MemberDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	private final String NAMESPACE ="com.jy.s4.member.memberUser.MemberUserDAO.";
+	
+	@Override
+	public int setMemberDelete(MemberDTO memberDTO) throws Exception {
+		
+		return sqlSession.delete(NAMESPACE+"setMemberDelete", memberDTO);
+	}
+	
+	@Override
+	public int setMemberUpdate(MemberDTO memberDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"setMemberUpdate", memberDTO);
+	}
 	
 	@Override
 	public MemberDTO getMemberLogin(MemberDTO memberDTO) throws Exception {

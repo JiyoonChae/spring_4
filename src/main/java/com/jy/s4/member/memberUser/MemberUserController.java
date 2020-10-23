@@ -17,6 +17,55 @@ public class MemberUserController {
 	@Autowired
 	private MemberUserService memberUserService;
 	
+	@GetMapping("memberDelete")
+	public ModelAndView setMemberDelete(MemberDTO memberDTO, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		MemberDTO d = (MemberDTO) session.getAttribute("member");
+		memberDTO.setId(d.getId());
+		
+		int result = memberUserService.setMemberDelete(memberDTO);
+		mv.setViewName("redirect:../");
+		return mv;
+	}
+	
+	@PostMapping("memberUpdate")
+	public ModelAndView setMemberUpdate(MemberDTO memberDTO, HttpSession session) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		MemberDTO s = (MemberDTO) session.getAttribute("member");  //session의 정보들 가져오는거. 리턴이 Object타입이어야해서 강제형변환해줘야함.
+		memberDTO.setId(s.getId());
+		
+		int result = memberUserService.setMemberUpdate(memberDTO);
+		if(result >0 ) {
+			s.setName(memberDTO.getName());
+			s.setEmail(memberDTO.getEmail());
+			session.setAttribute("member", s);
+			mv.addObject("msg", "update success");
+		}else {
+			mv.addObject("msg", "update fail");
+		}
+		
+		mv.addObject("path", "./memberPage");
+		mv.setViewName("common/result");
+		
+		return mv;
+	}
+	
+	@GetMapping("memberUpdate")
+	public ModelAndView setMemberUpdate() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/memberUpdate");
+		
+		return mv;
+	}
+	
+	@GetMapping("memberPage")
+	public ModelAndView getMemberPage() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/memberPage");
+		return mv;
+	}
+	
 	@GetMapping("memberLogout")
 	public ModelAndView getMemberLogout(HttpSession session) throws Exception{
 		//웹브라우저를 종료시키거나 memberDTO를 NULL 로 바꿈.

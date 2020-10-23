@@ -1,5 +1,7 @@
 package com.jy.s4.member.memberUser;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,17 @@ import com.jy.s4.member.MemberService;
 public class MemberUserService implements MemberService {
 	@Autowired
 	private MemberUserDAO memberUserDAO;
+	
+	@Override
+	public int setMemberDelete(MemberDTO memberDTO) throws Exception {
+		
+		return memberUserDAO.setMemberDelete(memberDTO);
+	}
+	
+	@Override
+	public int setMemberUpdate(MemberDTO memberDTO) throws Exception {
+		return memberUserDAO.setMemberUpdate(memberDTO);
+	}
 	
 	@Override
 	public MemberDTO getMemberLogin(MemberDTO memberDTO) throws Exception {

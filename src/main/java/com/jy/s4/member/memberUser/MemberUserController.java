@@ -24,6 +24,7 @@ public class MemberUserController {
 		memberDTO.setId(d.getId());
 		
 		int result = memberUserService.setMemberDelete(memberDTO);
+		session.invalidate(); //강제로그아웃
 		mv.setViewName("redirect:../");
 		return mv;
 	}

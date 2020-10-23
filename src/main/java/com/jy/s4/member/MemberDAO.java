@@ -1,6 +1,10 @@
 package com.jy.s4.member;
 
 public interface MemberDAO {
+	
+	//join
+	public int setMemberJoin(MemberDTO memberDTO) throws Exception;
+	
 	//LOGIN
 	public MemberDTO getMemberLogin(MemberDTO memberDTO) throws Exception;
 	

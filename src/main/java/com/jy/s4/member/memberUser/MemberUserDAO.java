@@ -16,6 +16,12 @@ public class MemberUserDAO implements MemberDAO{
 	private final String NAMESPACE ="com.jy.s4.member.memberUser.MemberUserDAO.";
 	
 	@Override
+	public int setMemberJoin(MemberDTO memberDTO) throws Exception {
+		
+		return sqlSession.insert(NAMESPACE+"setMemberJoin", memberDTO);
+	}
+	
+	@Override
 	public int setMemberDelete(MemberDTO memberDTO) throws Exception {
 		
 		return sqlSession.delete(NAMESPACE+"setMemberDelete", memberDTO);

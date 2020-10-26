@@ -12,8 +12,16 @@ public class MemoService {
 	@Autowired
 	private MemoDAO memoDAO;
 	
+	public int setDelete(MemoDTO memoDTO) throws Exception{
+		return memoDAO.setDelete(memoDTO);
+	}
+	
 	public int setInsert(MemoDTO memoDTO) throws Exception{
 		return memoDAO.setInsert(memoDTO);
+	}
+	
+	public MemoDTO getOne(MemoDTO memoDTO) throws Exception {
+		return memoDAO.getOne(memoDTO);
 	}
 	
 	public List<MemoDTO> getList(Pager pager) throws Exception{

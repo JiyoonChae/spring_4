@@ -14,6 +14,14 @@ public class MemoDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE ="com.jy.s4.board.memo.MemoDAO.";
 	
+	public int setDelete(MemoDTO memoDTO) throws Exception{
+		return sqlSession.delete(NAMESPACE+"setDelete", memoDTO);
+	}
+	
+	public MemoDTO getOne(MemoDTO memoDTO)throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getOne", memoDTO);
+	}
+	
 	public List<MemoDTO> getList(Pager pager) throws Exception{
 		return sqlSession.selectList(NAMESPACE+"getList", pager);
 	}

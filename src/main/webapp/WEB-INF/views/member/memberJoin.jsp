@@ -17,6 +17,7 @@
     	<div class="form-group">
      	 <label for="id">ID:</label>
          <input type="text" class="form-control" id="id" placeholder="Enter ID" name="id">
+         <div id="idResult">사용가능한 id입니다</div>
    		 </div>
    		 
 	   

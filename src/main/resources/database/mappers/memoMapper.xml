@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+ <mapper namespace="com.jy.s4.board.memo.MemoDAO">   
+ 	<select id="getList" resultType="MemoDTO" parameterType="Pager">
+ 		SELECT * FROM
+		(select rownum as R, N.* from 
+		(select * from memo where 
+		<choose>
+			<when test="kind =='wr'">writer</when>
+			<otherwise>contents	</otherwise>
+		</choose> 
+		like '%'||#{search}||'%' order by num desc) N)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+ 	</select>
+ 	
+ 	<select id="getCount" resultType="long" parameterType="Pager">
+ 		select count(num) from memo
+ 		where
+ 		<choose>
+			<when test="kind =='wr'">writer</when>
+			<otherwise>contents	</otherwise>
+		</choose> 
+		like '%'||#{search}||'%'
+ 	</select>
+ 	
+ 	<insert id="setInsert" parameterType="MemoDTO">
+ 		insert into memo VALUES(qna_seq.nextval, #{contents}, #{writer}, sysdate)
+ 	</insert>
+ 	
+ </mapper>

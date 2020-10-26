@@ -19,6 +19,53 @@ public class QnACotroller {
 	@Autowired
 	private QnAService qnaService;
 	
+	@PostMapping("qnaUpdate")
+	public ModelAndView setUpdate2(BoardDTO boardDTO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		
+		int result = qnaService.setUpdate(boardDTO);
+		if(result>0) {
+			mv.addObject("msg", "update success");
+			mv.addObject("path", "./qnaList");
+		}else {
+			mv.addObject("msg", "update fail");
+			mv.addObject("path", "./qnaUpdate");
+		}
+		
+		mv.setViewName("common/result");
+		
+		 return mv;
+	}
+	
+	@GetMapping("qnaUpdate")
+	public ModelAndView setUpdate(BoardDTO boardDTO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		boardDTO = qnaService.getOne(boardDTO);
+		mv.addObject("dto", boardDTO);
+		mv.setViewName("board/boardUpdate");
+		mv.addObject("board", "qna");
+		
+		
+		return mv;
+	}
+	
+	@RequestMapping("qnaDelete")
+	public ModelAndView setDelete(BoardDTO boardDTO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		
+		int result = qnaService.setDelete(boardDTO);
+		
+		String message = "Delete Fail";
+		if(result >0) {
+			message ="Delete Success";
+		}
+		mv.addObject("msg", message);
+		mv.addObject("path", "./qnaList");
+		mv.setViewName("common/result");
+		
+		return mv;
+	}
+	
 	//@RequestMapping(value="qnaReply", method=RequestMethod.POST)
 	@PostMapping("qnaReply")
 	public ModelAndView setReply(BoardDTO boardDTO) throws Exception{

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,41 @@ import com.jy.s4.util.Pager;
 public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
+	
+	@PostMapping("noticeUpdate")
+	public ModelAndView setUpdate2(BoardDTO boardDTO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		System.out.println("NOTICE POST UPDATE");
+		mv.addObject("board", "notice");
+		int result = noticeService.setUpdate(boardDTO);
+		
+		
+		if(result>0) {
+			mv.addObject("msg", "update success");
+			mv.addObject("path", "./noticeList");
+		}else {
+			mv.addObject("msg", "update fail");
+			mv.addObject("path", "./noticeUpdate");
+		}
+		
+		mv.setViewName("common/result");
+		
+		return mv;
+	
+	}
+	
+	@GetMapping("noticeUpdate")
+	public ModelAndView setUpdate(BoardDTO boardDTO) throws Exception {
+		System.out.println("notice get update");
+		ModelAndView mv = new ModelAndView();
+		boardDTO = noticeService.getOne(boardDTO);
+	//	System.out.println(boardDTO.getNum());
+		mv.addObject("dto", boardDTO);
+		mv.addObject("board", "notice");
+		mv.setViewName("board/boardUpdate");
+		
+		return mv;
+	}
 	
 	@GetMapping("noticeDelete")
 	public ModelAndView setDelete(BoardDTO boardDTO) throws Exception {
@@ -90,7 +126,7 @@ public class NoticeController {
 		mv.addObject("list", ar);
 		mv.addObject("board", "notice");
 		mv.addObject("pager", pager);
-		System.out.println("notice list");
+	//	System.out.println("notice list");
 		mv.setViewName("board/boardList");
 		return mv;
 	}

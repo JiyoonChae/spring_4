@@ -19,14 +19,20 @@
 		<h3>${dto.regDate}</h3>
 		
 		
-	<input type="button" title="${dto.num}" value="update" class="btn btn-info" id="update">
 	
-	<a href="./${board}Delete?num=${dto.num }" class="btn btn-warning">Delete</a>
+	<a href="./${board}Update?num=${dto.num}" class="btn btn-info">Update</a>
+	<a href="./${board}Delete?num=${dto.num}" class="btn btn-warning">Delete</a>
 	<c:if test="${board ne 'notice'}">
-	<a href="./${board}Reply?num=${dto.num }" class="btn btn-primary">Reply</a>
+	<a href="./${board}Reply?num=${dto.num}" class="btn btn-primary">Reply</a>
 		</c:if>
 	</div>
-
+	
+	<script type="text/javascript">
+		$("#update").click(function() {
+			var n = $(this).attr("title");
+			location.href="./noticeUpdate?num="+n
+		})
+	</script>
 	
 </body>
 </html>

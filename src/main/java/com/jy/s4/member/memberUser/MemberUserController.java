@@ -17,6 +17,19 @@ public class MemberUserController {
 	@Autowired
 	private MemberUserService memberUserService;
 	
+	@GetMapping("memberCheck")
+	public ModelAndView checkMemberId(MemberDTO memberDTO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		memberDTO = memberUserService.checkMemberId(memberDTO);
+		int result=1; //중복일때.
+		if(memberDTO == null){
+			result=0;
+		}
+		mv.addObject("msg", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
 	@PostMapping("memberJoin")
 	public ModelAndView setMemberJoin(MemberDTO memberDTO)throws Exception{
 		ModelAndView mv = new ModelAndView();

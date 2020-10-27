@@ -15,6 +15,10 @@ public class MemberUserDAO implements MemberDAO{
 	private SqlSession sqlSession;
 	private final String NAMESPACE ="com.jy.s4.member.memberUser.MemberUserDAO.";
 	
+	public MemberDTO checkMemberId(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"checkMemberId", memberDTO);
+	}
+	
 	@Override
 	public int setMemberJoin(MemberDTO memberDTO) throws Exception {
 		

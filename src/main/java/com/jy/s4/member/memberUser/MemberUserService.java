@@ -12,6 +12,10 @@ public class MemberUserService implements MemberService {
 	@Autowired
 	private MemberUserDAO memberUserDAO;
 	
+	public MemberDTO checkMemberId(MemberDTO memberDTO) throws Exception{
+		return memberUserDAO.checkMemberId(memberDTO);
+	}
+	
 	@Override
 	public int setMemberJoin(MemberDTO memberDTO) throws Exception {
 		

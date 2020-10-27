@@ -12,10 +12,9 @@
 <c:import url="../template/header.jsp"></c:import>
 	<div class="container">
 	 <h1>Memo PAGE</h1>
-	<button id="btn" classe="btn btn-primary"/>List</button> 
 	
 	<div>
-	<div class="form-group">
+	    <div class="form-group">
     	  <label for="writer">Writer:</label>
     	  <input type="text" class="form-control" value="${member.id}" id="writer" placeholder="Enter Writer" name="writer">
   	    </div>
@@ -24,7 +23,6 @@
     	  <label for="contents">Contents:</label>
    	   <textarea class="form-control" rows="10" id="contents" name="contents"></textarea>
     	</div>
-    
     
     <button type="submit" class="btn btn-default" id="write">Write</button>
 	</div>
@@ -38,25 +36,21 @@
 		
 		//******************del *********
 		$("#result").on("click", ".del", function() {
-			var n = $(this).attr("title");
-			
-			alert(n);
+			var num = $(this).attr("title");
+			alert(num);
 			//ajax통해서 post 방식으로 처리
 			$.post("./memoDelete", {num:num}, function(data){
-				alert(data);
-				alert(date==1);
+				data=data.trim();
+				if(data>0){
+					getList();
+				}else {
+					alert("delete fail")
+				}
+				
 			})
 		});
-		
-		
-		//**********************************
-		function getList(){
-			$.get("./memoList", function(data){
-				$("#result").html(data);
-			})
-		}
-		//*********************************************
-		$("#write").click(function() {
+		//************************************************
+			$("#write").click(function() {
 			var writer = $("#writer").val();
 			var contents = $("#contents").val();
 			
@@ -68,11 +62,16 @@
 			})
 			
 		})
+		
+		//*************************************************
+		function getList(){
+			$.get("./memoList", function(data){
+				$("#result").html(data);
+			})
+		}
+		//*********************************************
 	
-		
-		
-		
-			
+
 	</script>
 </body>
 </html>

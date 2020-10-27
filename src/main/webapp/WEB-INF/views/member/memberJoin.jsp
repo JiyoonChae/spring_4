@@ -21,7 +21,7 @@
 
 <div class="container">
 	<h3>Member Join page</h3>
-	  <form action="./memberJoin" method="post">
+	  <form action="./memberJoin" method="post" id="frm">
     	<div class="form-group">
      	 <label for="id">ID:</label>
          <input type="text" class="form-control" id="id" placeholder="Enter ID" name="id">
@@ -33,42 +33,112 @@
 	      <label for="pw">Password:</label>
 	      <input type="password" class="form-control" id="pw" placeholder="Enter password" name="pw">
 	    </div>
+	    <div class="form-group">
+	      <label for="pw2">Password:</label>
+	      <input type="password" class="form-control" id="pw2" placeholder="Enter password" name="pw2">
+	    	<div id="pwResult"></div>
+	    </div>
+	    
 	    
 	    <div class="form-group">
 	      <label for="name">NAME:</label>
-	      <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+	      <input type="text" class="form-control empty" id="name" placeholder="Enter name" name="name">
+	    	<div class="emptyResult"></div>
 	    </div>
 	    
 	    <div class="form-group">
 	      <label for="email">Email:</label>
-	      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+	      <input type="email" class="form-control empty" id="email" placeholder="Enter email" name="email">
+	    	<div class="emptyResult"></div>
 	    </div>
-	    
-     <button type="submit" class="btn btn-default">Submit</button>
+	    <input type="button" value="Join" class="btn btn-default" id="join">
+    
   </form>
 </div>
 	
 	<script type="text/javascript">
-		$("#id").blur(function(){
-			var id = $(this).val();
-			alert(id);
-			$.get("./memberCheck?id="+id, function(data){
-				//a사용가능, b사용불가 =>알려줘야함 가능불가능을
-				//true가오면 사용가능, false불가는
+	var idCheck = false;
+	var pwCheck = false;
+	var emptyCheckResult = true;
+		$("#join").click(function(){
+			emptyCheck()
+			//중복체크했고, 사용가능한 id이면
+			if(idCheck && pwCheck && emptyCheckResult){
+			alert("ok");
+			}else{
+			//중복체크를 안했거나, 사용불가한 id이면
+			alert("no");
+			}
+			//$("#frm").submit();
+		})
+	
+	//****************Empty check : name, email.. etc
+	function emptyCheck() {
+			emptyCheckResult = true;
+			$(".emptyResult").removeClass("idCheck0")
+			$(".emptyResult").removeClass('')  //input 비워주기
+			$(".empty").each(function(){
+				var data = $(this).val()
+				
+				if(data ==''){
+					emptyCheckResult = false;
+					$(this).next().html("필수 항목 입니다")
+					$(".emptyResult").addClass("idCheck1")
+				}
+			});
+			
+		}
+	
+	
+	//*******************pw check ********
+	 $("#pw2").blur(function(){
+		 var pw = $("#pw").val();
+		 var pw2 = $(this).val();
+		 pwCheck=false;
+		 if(pw2==''){
+			 $("#pwResult").html("Password를 입력하세요");
+			 $("#pwResult").removeClass("idCheck0").addClass("idCheck1");
+		 }else if(pw==pw2){
+			 $("#pwResult").html("Password가 일치 합니다")
+			 $("#pwResult").removeClass("idCheck1").addClass("idCheck0");
+			 pwCheck = true;
+		 }else{
+			 $("#pwResult").html("Password가 일치하지 않습니다");
+			 $("#pwResult").removeClass("idCheck0").addClass("idCheck1");
+			 
+		 }
+		 
+	 })
+	
+	
+	//***********id check **********************	
+		$("#id").blur(function(){		//포커스줬다가 뺄때 =blur
+			var id = $(this).val();		//input태그에 입력한 값 가져오기
+			//alert(id);
+			if(id==''){						//아무것도 입력안하면 실행될 이벤트
+				$("#idResult").html("id를 입력하세요");
+				$("#idResult").addClass("idCheck1");
+			}
+			$.get("./memberCheck?id="+id, function(data){ //get방식에 파라미터보내기
+				//a사용가능, b사용불가 =>가능불가능을 알려줘야함
+				//true가오면 사용가능, false불가능
 				//0 사용가능, 1 사용불가
-				data=data.trim();
-				var str = "중복된 id 입니다";  //js니까 var로 선언..
-				if(data==0){
-					str="사용 가능한 id입니다"
+				data=data.trim();			//빈칸이 있을 수도 있으니 사전작업해줌 
+				var str = "중복된 id 입니다";  //js니까 var로 선언..! 
+				if(data==0){				//db가서 테이블안에 id와 체크후 리턴값이 null이면 0, null이아니면 1
+					str="사용 가능한 id입니다"	//null이면 기존에 생성된 id가 없으니까 사용가능.
+					idCheck=true;
 					//클래스명 추가, 제외
-					$("#idResult").addClass("idCheck0");
+					$("#idResult").removeClass("idCheck1").addClass("idCheck0");
 				}else{
 					$("#idResult").addClass("idCheck1");
+					idCheck=false;
 				}
 				$("#idResult").html(str);
 			})
 		
-		})
+		});
+		
 	</script>
 
 </body>

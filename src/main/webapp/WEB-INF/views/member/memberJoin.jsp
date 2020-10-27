@@ -62,21 +62,22 @@
 	var emptyCheckResult = true;
 		$("#join").click(function(){
 			emptyCheck()
-			//중복체크했고, 사용가능한 id이면
+			//중복체크했고, 사용가능한 id이면 - server로 보내기
 			if(idCheck && pwCheck && emptyCheckResult){
-			alert("ok");
-			}else{
-			//중복체크를 안했거나, 사용불가한 id이면
-			alert("no");
+				$("#frm").submit();
 			}
-			//$("#frm").submit();
+			//else{
+			//중복체크를 안했거나, 사용불가한 id이면
+			//alert("no");
+			//}
+			
 		})
 	
 	//****************Empty check : name, email.. etc
 	function emptyCheck() {
 			emptyCheckResult = true;
 			$(".emptyResult").removeClass("idCheck0")
-			$(".emptyResult").removeClass('')  //input 비워주기
+			$(".emptyResult").html('')  //input 비워주기
 			$(".empty").each(function(){
 				var data = $(this).val()
 				

@@ -27,12 +27,23 @@
     <button type="submit" class="btn btn-default" id="write">Write</button>
 	</div>
 	
-	<div id="result">	</div>
-	<button class="btn btn-danger del">더보기</button>
+	<div>	
+		<table id="result" class="table table-border">
+		
+		</table>
+	</div>
+	<button class="btn btn-danger del" id="more">더보기</button>
 	
 </div>
 	<script type="text/javascript">	
+		var curPage=1;
 		getList();
+		
+		//******************more
+		$("#more").click(function(){
+			curPage++;
+			getList();
+		})
 		
 		//******************del *********
 		$("#result").on("click", ".del", function() {
@@ -53,6 +64,18 @@
 			$("#write").click(function() {
 			var writer = $("#writer").val();
 			var contents = $("#contents").val();
+		
+			$.ajax({
+				url:"./memoWrite",
+				type:"post",
+				data:{writer:writer, contents:contents},
+				success: function(result) {
+					alert(result);
+					$("#writer").val('');
+					$("#contents").val('');
+					getList();
+				}
+			})
 			
 			$.post("./memoWrite", {writer:writer, contents:contents},function(result) {
 				alert(result);
@@ -65,8 +88,13 @@
 		
 		//*************************************************
 		function getList(){
-			$.get("./memoList", function(data){
-				$("#result").html(data);
+			$.ajax({
+				url:"./memoList",
+				type:"get",
+				data:{curPage},
+				success:function(data){
+					$("#result").append(data);
+				}
 			})
 		}
 		//*********************************************

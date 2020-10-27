@@ -116,29 +116,34 @@
 		$("#id").blur(function(){		//포커스줬다가 뺄때 =blur
 			var id = $(this).val();		//input태그에 입력한 값 가져오기
 			//alert(id);
-			if(id==''){						//아무것도 입력안하면 실행될 이벤트
+			if(id !=''){		
+				$.ajax({
+					url:"./memberCheck",
+					type:"get",   //method
+					data:{id:id},  //파라미터, 두개이상이면 ,로 연결 
+					success:function(data){
+						data=data.trim();			//빈칸이 있을 수도 있으니 사전작업해줌 
+						var str = "중복된 id 입니다";  //js니까 var로 선언..! 
+						if(data==0){				//db가서 테이블안에 id와 체크후 리턴값이 null이면 0, null이아니면 1
+							str="사용 가능한 id입니다"	//null이면 기존에 생성된 id가 없으니까 사용가능.
+							idCheck=true;
+							//클래스명 추가, 제외
+							$("#idResult").removeClass("idCheck1").addClass("idCheck0");
+						}else{
+							$("#idResult").addClass("idCheck1");
+							idCheck=false;
+						}
+						$("#idResult").html(str);
+					} //성공시 실행할 함수
+				})
+				
+			}else{
+				//아무것도 입력안하면 실행될 이벤트
 				$("#idResult").html("id를 입력하세요");
 				$("#idResult").addClass("idCheck1");
 			}
-			$.get("./memberCheck?id="+id, function(data){ //get방식에 파라미터보내기
-				//a사용가능, b사용불가 =>가능불가능을 알려줘야함
-				//true가오면 사용가능, false불가능
-				//0 사용가능, 1 사용불가
-				data=data.trim();			//빈칸이 있을 수도 있으니 사전작업해줌 
-				var str = "중복된 id 입니다";  //js니까 var로 선언..! 
-				if(data==0){				//db가서 테이블안에 id와 체크후 리턴값이 null이면 0, null이아니면 1
-					str="사용 가능한 id입니다"	//null이면 기존에 생성된 id가 없으니까 사용가능.
-					idCheck=true;
-					//클래스명 추가, 제외
-					$("#idResult").removeClass("idCheck1").addClass("idCheck0");
-				}else{
-					$("#idResult").addClass("idCheck1");
-					idCheck=false;
-				}
-				$("#idResult").html(str);
-			})
-		
 		});
+	
 		
 	</script>
 

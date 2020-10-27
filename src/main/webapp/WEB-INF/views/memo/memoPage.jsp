@@ -41,7 +41,7 @@
 		
 		//******************more
 		$("#more").click(function(){
-			curPage++;
+			curPage++;  //1씩 증가 
 			getList();
 		})
 		
@@ -53,6 +53,8 @@
 			$.post("./memoDelete", {num:num}, function(data){
 				data=data.trim();
 				if(data>0){
+					$("#result").html('');
+					curPage=1;
 					getList();
 				}else {
 					alert("delete fail")
@@ -91,7 +93,7 @@
 			$.ajax({
 				url:"./memoList",
 				type:"get",
-				data:{curPage},
+				data:{curPage:curPage},
 				success:function(data){
 					$("#result").append(data);
 				}

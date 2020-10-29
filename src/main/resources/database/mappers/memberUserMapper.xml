@@ -7,9 +7,25 @@
    		<select id="checkMemberId" parameterType="MemberDTO" resultType="MemberDTO">
    			select id from member_jy where id LIKE '%'||#{id}||'%'
    		</select>
+   		
+   		<resultMap type="MemberUserDTO" id="getMemberLoginResult">
+   			<id column="num" property="num"></id>
+   			<result column="id" property="id"/>
+   			<result column="pw" property="pw"/>
+   			<result column="name" property="name"/>
+   			<result column="email" property="email"/>
+   			<association property="memberFileDTO">
+   				<result column="fileName" property="fileName"/>
+   				<result column="oriName" property="oriName"/>
+   			</association>
+   		</resultMap>
    
-   		<select id="getMemberLogin" parameterType="MemberDTO" resultType="MemberUserDTO">
-   			select * from member_jy where id=#{id} and pw=#{pw}
+   		<select id="getMemberLogin" parameterType="MemberDTO" resultMap="getMemberLoginResult">
+   			select M.*, F.fileName, F.oriName
+			from member_jy M
+   			 inner join memberFile F
+   			 on M.id = F.id
+			where M.id =#{id} and M.pw=#{pw}
    		</select>
    		
    		<update id="setMemberUpdate" parameterType="MemberDTO">

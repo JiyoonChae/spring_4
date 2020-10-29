@@ -129,9 +129,9 @@ public class Pager {
 	public void setLastRow(int lastRow) {
 		this.lastRow = lastRow;
 	}
-	public String getKind() {
-		if(kind==null) {
-			kind="tt";
+	public String getKind() { //컬럼명
+		if(kind==null) { //컬럼명이 안넘어온다면
+			kind="tt"; //title값을 넘겨줌
 		}
 		return kind;
 	}
@@ -139,8 +139,8 @@ public class Pager {
 		this.kind = kind;
 	}
 	public String getSearch() {
-		if(search == null) {
-			search="";
+		if(search == null) { //아무것도 안넘어오면 null이 발생
+			search=""; //빈문자열을 넘겨줌 = 모든게 다 검색
 		}
 		return search;
 	}

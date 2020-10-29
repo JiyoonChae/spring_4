@@ -21,7 +21,7 @@
 
 <div class="container">
 	<h3>Member Join page</h3>
-	  <form action="./memberJoin" method="post" id="frm">
+	  <form action="./memberJoin" method="post" id="frm" enctype="multipart/form-data">
     	<div class="form-group">
      	 <label for="id">ID:</label>
          <input type="text" class="form-control" id="id" placeholder="Enter ID" name="id">
@@ -51,8 +51,14 @@
 	      <input type="email" class="form-control empty" id="email" placeholder="Enter email" name="email">
 	    	<div class="emptyResult"></div>
 	    </div>
+	    
+	        <div class="form-group">
+	      <label for="photo">Photo:</label>
+	      <input type="file" class="form-control" id="photo" name="photo">
+	    
+	    </div>
 	    <input type="button" value="Join" class="btn btn-default" id="join">
-    
+    	<button>test join</button>
   </form>
 </div>
 	
@@ -136,7 +142,6 @@
 						$("#idResult").html(str);
 					} //성공시 실행할 함수
 				})
-				
 			}else{
 				//아무것도 입력안하면 실행될 이벤트
 				$("#idResult").html("id를 입력하세요");

@@ -14,6 +14,14 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+		<!-- file Upload -->
+		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<dependency>
+   		 <groupId>commons-fileupload</groupId>
+   		 <artifactId>commons-fileupload</artifactId>
+  		  <version>1.3.3</version>
+			</dependency>
+		
 		<!-- ojdbc6.jar -->
 		<!--dependecy, groupId, artifactId, version...기억못하니까 찾아서 복사해옴 > mvn repository에서 검색 -->	
 			<!-- https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8 -->

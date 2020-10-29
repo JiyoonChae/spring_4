@@ -75,6 +75,8 @@
 					alert(result);
 					$("#writer").val('');
 					$("#contents").val('');
+					$("#result").html('');
+					curPage=1;
 					getList();
 				}
 			})

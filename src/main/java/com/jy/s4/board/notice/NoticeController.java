@@ -2,12 +2,15 @@ package com.jy.s4.board.notice;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jy.s4.board.BoardDTO;
@@ -91,10 +94,13 @@ public class NoticeController {
 	}
 	
 	@PostMapping("noticeWrite")
-	public ModelAndView setInsert(BoardDTO boardDTO) throws Exception {
+	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile files, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		int result = noticeService.setInsert(boardDTO);
-		
+		int result = noticeService.setInsert(boardDTO, files, session);
+		System.out.println(files.getOriginalFilename());
+		System.out.println(files.getName());
+		System.out.println(files.getSize());
+		System.out.println(files.getContentType());
 		String message = "Write fail";
 		if(result>0) {
 			message = "Wrtie success";

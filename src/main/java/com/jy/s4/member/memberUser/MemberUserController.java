@@ -7,15 +7,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jy.s4.member.MemberDTO;
+import com.jy.s4.member.memberFile.MemberFileDTO;
+import com.jy.s4.member.memberFile.MemberFileService;
 
 @Controller
 @RequestMapping(value="/member/**")
 public class MemberUserController {
 	@Autowired
 	private MemberUserService memberUserService;
+	@Autowired
+	private MemberFileService MemberFileService;
 	
 	@GetMapping("memberCheck")
 	public ModelAndView checkMemberId(MemberDTO memberDTO) throws Exception{
@@ -31,10 +36,14 @@ public class MemberUserController {
 	}
 	
 	@PostMapping("memberJoin")
-	public ModelAndView setMemberJoin(MemberDTO memberDTO)throws Exception{
+	public ModelAndView setMemberJoin(MemberDTO memberDTO, MultipartFile photo, HttpSession session)throws Exception{
 		ModelAndView mv = new ModelAndView();
-		int result = memberUserService.setMemberJoin(memberDTO);
-		
+		//int result = memberUserService.setMemberJoin(memberDTO);
+		System.out.println(photo.getOriginalFilename());
+		System.out.println(photo.getName());
+		System.out.println(photo.getSize());
+		System.out.println(photo.getContentType());
+		int result = memberUserService.setMemberJoin(memberDTO, photo, session);
 		mv.setViewName("redirect:./memberLogin");
 		return mv;
 	}
@@ -93,8 +102,13 @@ public class MemberUserController {
 	}
 	
 	@GetMapping("memberPage")
-	public ModelAndView getMemberPage() throws Exception {
+	public ModelAndView getMemberPage(HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		MemberFileDTO memberFileDTO = memberUserService.getOne(memberDTO);
+		
+		mv.addObject("file", memberFileDTO);
 		mv.setViewName("member/memberPage");
 		return mv;
 	}

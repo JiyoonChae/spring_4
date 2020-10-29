@@ -16,7 +16,7 @@
   <!-- ****************검색 search 기능 ***************** -->
    <div class="row">
   <div class="col-sm-5">
-  <form action="./${board}List" id="frm">
+  <form action="./${board}List" id="frm"> 
   	<input type="hidden" name="curPage" id="curPage">
        <div class="input-group">
         <select class="form-control" id="kind" name="kind" >
@@ -70,14 +70,14 @@
 	
 	<div>
 	   <c:if test="${pager.beforeCheck }">
-			<a href="./${board}List?curPage=${pager.startNum-1 }">[이전]</a>
+			<a href="./${board}List?curPage=${pager.startNum-1 }&kind=${pager.kind}&search=${pager.search}">[이전]</a>
 		</c:if>
 		
 		<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i"> 
-		<a href="./${board}List?curPage=${i}"> ${i }</a> </c:forEach>
+		<a href="./${board}List?curPage=${i}&kind=${pager.kind}&search=${pager.search}"> ${i }</a> </c:forEach>
 		
 		<c:if test="${pager.nextCheck}">
-		<a href="./${board}List?curPage=${pager.lastNum+1}"> [다음]</a> 
+		<a href="./${board}List?curPage=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}"> [다음]</a> 
 		</c:if>
 	
 	</div>

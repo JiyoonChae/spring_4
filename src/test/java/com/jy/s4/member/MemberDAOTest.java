@@ -12,7 +12,7 @@ public class MemberDAOTest extends MyTestCase {
 	@Autowired
 	private MemberUserDAO memberUserDAO;
 	
-	@Test
+	//@Test
 	public void memberDAOtest() throws Exception {
 		MemberDTO mdto = new MemberDTO();
 		mdto.setId("id1");

@@ -24,7 +24,7 @@ public class NoticeDAOTest extends MyTestCase {
 		assertNotEquals(0, ar.size());
 	}
 	
-	@Test
+	//@Test
 	public void setInsertTest() throws Exception{
 		BoardDTO boardDTO = new BoardDTO();
 		boardDTO.setTitle("title test");

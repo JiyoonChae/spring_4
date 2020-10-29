@@ -12,6 +12,14 @@
         color: red;
         font-weight: bold;
     }
+    
+    #f{
+    	display:none;
+    }
+    
+    .del {
+    	cursor: pointer;
+    }
 </style>
 </head>
 
@@ -58,19 +66,26 @@
 
 	<script type="text/javascript" > //제이쿼리쓰는거 -EVENT
 		//src 경로써서 script파일 가져오기 src="../resources/js/boardWrite.js"
-		var idx=0;
+		
 		var count=0;
 		$("#fileAdd").click(function() {
-			var f = $("#f").html();
+			
 			//$("#files").append(f);
 			
 			if(count<5) {
+				var f = $("#f").html().trim();
+				$("#files").append(f);
 				count++;
-				$("#files").append('<div id="d'+idx+'"><div class="input-group"><input type="file" class="form-control"  id="files" name="files"><span class="input-group-addon del">DEL</span></div></div>');
 			}else{
 				alert("파일은 5개까지 가능합니다")
 			}
-			idx++;
+			
+		})
+		
+		$("#files").on("click", ".del", function(){
+			alert("del");
+			$(this).parent().remove();
+			count--;	
 		})
 		
 	</script>

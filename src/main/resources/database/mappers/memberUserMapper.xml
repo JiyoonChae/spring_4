@@ -8,16 +8,21 @@
    			select id from member_jy where id LIKE '%'||#{id}||'%'
    		</select>
    		
-   		<resultMap type="MemberUserDTO" id="getMemberLoginResult">
+   		<resultMap type="MemberDTO" id="getMemberLoginResult">
    			<id column="num" property="num"></id>
    			<result column="id" property="id"/>
    			<result column="pw" property="pw"/>
    			<result column="name" property="name"/>
    			<result column="email" property="email"/>
-   			<association property="memberFileDTO">
-   				<result column="fileName" property="fileName"/>
-   				<result column="oriName" property="oriName"/>
+   			<association property="memberFileDTO" javaType="MemberFileDTO" resultMap="memberfileResult">
    			</association>
+   		</resultMap>
+   		
+   		<resultMap type="MemberFileDTO" id="memberfileResult">
+   			<id column="num" property="num"></id>
+   			<result column="id" property="id"/>
+   			<result column="fileName" property="fileName"/>
+   			<result column="oriName" property="oriName"/>
    		</resultMap>
    
    		<select id="getMemberLogin" parameterType="MemberDTO" resultMap="getMemberLoginResult">

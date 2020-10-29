@@ -25,9 +25,9 @@ public class MemberUserService implements MemberService {
 	@Autowired
 	private FileSaver fileSaver;
 	
-	public MemberFileDTO getOne(MemberDTO memberDTO) throws Exception{
-		return memberFileDAO.getOne(memberDTO);
-	}
+//	public MemberFileDTO getOne(MemberDTO memberDTO) throws Exception{
+//		return memberFileDAO.getOne(memberDTO);
+//	}
 	
 	public MemberDTO checkMemberId(MemberDTO memberDTO) throws Exception{
 		return memberUserDAO.checkMemberId(memberDTO);

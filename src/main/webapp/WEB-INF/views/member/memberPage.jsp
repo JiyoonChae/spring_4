@@ -22,7 +22,7 @@
 	
 	</table>
 	<div>
-		<img alt="oriName" src="../resources/upload/member/${file.fileName}">
+		<img alt="oriName" src="../resources/upload/member/${member.memberFileDTO.fileName}">
 	</div>
 	<a href="./memberUpdate" class="btn btn-primary">Update</a>
 	<a href="./memberDelete" class="btn btn-danger">Delete</a>

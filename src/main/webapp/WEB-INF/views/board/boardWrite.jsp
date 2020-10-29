@@ -7,6 +7,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../template/bootStrap.jsp"></c:import>
+<style type="text/css">
+    .del {
+        color: red;
+        font-weight: bold;
+    }
+</style>
 </head>
 
 <body>
@@ -30,18 +36,43 @@
    	   <textarea class="form-control" rows="10" id="contents" name="contents"></textarea>
     	</div>
     	
-    	<div class="form-group">
-    	  <label for="files">File:</label>
-   	   <input type="file" class="form-control"  id="files" name="files">
+    	<input type="button" value="FileAdd" class="btn btn-info" id="fileAdd">
+    	<div id="files">
+    	
     	</div>
     
-    <input type="button" class="btn btn-primary" value="Write" id="btn">
-    <button type="submit" class="btn btn-default">Write</button>
+    	<div class=form-group>
+  		  <input type="button" class="btn btn-primary" value="Write" id="btn">
+   		 <button type="submit" class="btn btn-default">Write</button>
+  	    </div>
+ 
+ 	<div id = "f">
+    		<div class="input-group">
+      		  <input id="files" type="file" class="form-control" name="files">
+      		  <span class="input-group-addon del">DEL</span>
+     		 </div>
+ 	</div>
+ 	
   </form>
 </div>
 
-	<script type="text/javascript" src="../resources/js/boardWrite.js"> //제이쿼리쓰는거 -EVENT
-		//script파일 가져오기 
+	<script type="text/javascript" > //제이쿼리쓰는거 -EVENT
+		//src 경로써서 script파일 가져오기 src="../resources/js/boardWrite.js"
+		var idx=0;
+		var count=0;
+		$("#fileAdd").click(function() {
+			var f = $("#f").html();
+			//$("#files").append(f);
+			
+			if(count<5) {
+				count++;
+				$("#files").append('<div id="d'+idx+'"><div class="input-group"><input type="file" class="form-control"  id="files" name="files"><span class="input-group-addon del">DEL</span></div></div>');
+			}else{
+				alert("파일은 5개까지 가능합니다")
+			}
+			idx++;
+		})
+		
 	</script>
 </body>
 </html>

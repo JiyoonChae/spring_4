@@ -3,6 +3,7 @@ package com.jy.s4.board.notice;
 import java.io.File;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jy.s4.board.BoardDTO;
 import com.jy.s4.board.BoardService;
+import com.jy.s4.board.file.BoardFileDTO;
 import com.jy.s4.util.FileSaver;
 import com.jy.s4.util.Pager;
 
@@ -24,13 +26,45 @@ public class NoticeService implements BoardService {
 		private FileSaver fileSaver;
 		
 	@Override
-	public int setInsert(BoardDTO boardDTO, MultipartFile files, HttpSession session) throws Exception {
+	public int setInsert(BoardDTO boardDTO, MultipartFile[] files, HttpSession session) throws Exception {
 		
 		String path = session.getServletContext().getRealPath("/resources/upload/notice/");
 		System.out.println(path);
 		File file = new File(path);
 		
-		fileSaver.saveCopy(file, files);
+		//--sequence 받아오기
+//		boardDTO.setNum(noticeDAO.getNum());
+		
+		//Notice Insert
+		int result = noticeDAO.setInsert(boardDTO);
+		System.out.println("num:"+boardDTO.getNum());
+		
+		//NoticeFile Insert 
+		//배열이라서 fileSaver못쓰는줄 알았는데 여기서 하나씩 꺼내서 보내는거 가능,,
+		for(MultipartFile multipartFile:files) {
+			if(multipartFile.getSize() !=0) {
+			String fileName = fileSaver.saveCopy(file, multipartFile);
+			System.out.println(fileName);
+			BoardFileDTO boardfileDTO = new BoardFileDTO();
+			boardfileDTO.setFileName(fileName);
+			boardfileDTO.setOriName(multipartFile.getOriginalFilename());
+			boardfileDTO.setNum(boardDTO.getNum());
+			
+			noticeDAO.setInsertFile(boardfileDTO);
+			}
+		}
+		
+		
+		//fileSaver.saveTransfer(file, files);
+		
+//		String fileName= UUID.randomUUID().toString();
+//		for(int i=0; i<files.length; i++) {
+//			fileName = fileName+"-"+files[i].getOriginalFilename();
+//			file = new File(file, fileName);
+//			files[i].transferTo(file);
+//		}
+		
+		
 		//dao로 insert할 때 저장된 파일명을 가지고 와야함. 
 //		Calendar ca = Calendar.getInstance();
 //		long time = ca.getTimeInMillis();
@@ -43,7 +77,7 @@ public class NoticeService implements BoardService {
 //		byte[] ar = files.getBytes();
 //		FileCopyUtils.copy(ar, file);
 		
-		return 0; //noticeDAO.setInsert(boardDTO);
+		return result; //noticeDAO.setInsert(boardDTO);
 	}
 
 	@Override

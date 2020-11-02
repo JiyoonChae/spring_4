@@ -2,10 +2,13 @@ package com.jy.s4.board;
 
 import java.util.List;
 
+import com.jy.s4.board.file.BoardFileDTO;
 import com.jy.s4.util.Pager;
 
 public interface BoardDAO {
 	//추상메서드 abstract, 메서드의 선언부까지만
+	
+	
 	
 	//DAO 공통기능 
 	//insert - abstract안써주면 자동입력됨..

@@ -11,7 +11,7 @@ import com.jy.s4.util.Pager;
 
 public interface BoardService {
 	//insert - abstract안써주면 자동입력됨..
-		public int setInsert(BoardDTO boardDTO, MultipartFile photo, HttpSession session) throws Exception;
+		public int setInsert(BoardDTO boardDTO, MultipartFile [] files, HttpSession session) throws Exception;
 		
 		//update
 		public int setUpdate(BoardDTO boardDTO) throws Exception;

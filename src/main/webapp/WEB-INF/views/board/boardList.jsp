@@ -83,7 +83,7 @@
 	</div>
 	
 	<c:choose>
-	 <c:when test="${board eq 'n' }">
+	 <c:when test="${board eq 'n' }">  <!-- notice로 바꿔줘야함!! -->
 	  <c:if test="${not empty member and member.id eq 'admin'}">
 	   <a href="./${board}Write" class="btn btn-danger">Write</a>
 	  </c:if>

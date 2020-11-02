@@ -2,15 +2,19 @@ package com.jy.s4.board.qna;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jy.s4.board.BoardDTO;
+import com.jy.s4.board.file.BoardFileDTO;
 import com.jy.s4.util.Pager;
 
 @Controller
@@ -18,6 +22,17 @@ import com.jy.s4.util.Pager;
 public class QnACotroller {
 	@Autowired
 	private QnAService qnaService;
+	
+	@GetMapping("fileDown")
+	public ModelAndView fileDown(BoardFileDTO boardfileDTO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+	
+		mv.addObject("board", "qna");
+		mv.addObject("fileDTO", boardfileDTO);
+		mv.setViewName("fileDown");
+		
+		return mv;
+	}
 	
 	@PostMapping("qnaUpdate")
 	public ModelAndView setUpdate2(BoardDTO boardDTO)throws Exception{
@@ -114,9 +129,9 @@ public class QnACotroller {
 	}
 	
 	@PostMapping("qnaWrite")
-	public ModelAndView setInsert(BoardDTO boardDTO) throws Exception {
+	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile[] files, HttpSession session) throws Exception {
 			ModelAndView mv = new ModelAndView();
-		int result = qnaService.setInsert(boardDTO);
+		int result = qnaService.setInsert(boardDTO, files, session);
 		
 		String message = "Write fail";
 		if(result>0) {
@@ -144,7 +159,7 @@ public class QnACotroller {
 		List<BoardDTO> ar = qnaService.getList(pager);
 		BoardDTO boardDTO = ar.get(0); // 이거뭐임??
 		QnADTO qnaDTO = (QnADTO)boardDTO;
-		System.out.println(qnaDTO.getDepth());
+		
 		//EL은 타입을 추측해줌.
 		
 		mv.addObject("list", ar);

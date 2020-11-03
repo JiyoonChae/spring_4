@@ -23,10 +23,24 @@
 	</beans:bean>
 	
 	
-	<!--beans bean  -->
+	<!--beans bean : 객체 생성하는 코드 -->
 		<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="0"></beans:property>
 	</beans:bean>
+	
+	
+	
+	<interceptors>
+		<interceptor>
+			<!-- 순서 중요함, 어떤 url이 들어왔을 때 어떤 interceptor를 실행할것인지 순서, mapping 여러개 가능, 객체만들어야함, -->
+			<mapping path="/qna/*"/>
+			<mapping path="/notice/*"/>
+			<beans:ref bean="qnaInterceptor"/>	
+		</interceptor>
+	</interceptors>
+	
+	
+	
 	
 	<beans:bean class="com.jy.s4.util.FileDown" id="fileDown"></beans:bean>
 	

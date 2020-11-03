@@ -1,4 +1,4 @@
-
+package com.jy.s4.filter;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -9,14 +9,14 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 /**
- * Servlet Filter implementation class TestFilter
+ * Servlet Filter implementation class EncodingFilter
  */
-public class TestFilter implements Filter {
-
+public class EncodingFilter implements Filter {
+	private String encode;
     /**
      * Default constructor. 
      */
-    public TestFilter() {
+    public EncodingFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -36,21 +36,18 @@ public class TestFilter implements Filter {
 
 		// pass the request along the filter chain
 		
-		//notice write, update, delete 관리자만 가능
-		
-		System.out.println("요청 발생");
-		System.out.println("ds 진입 전");
+		System.out.println("Encoding Filter In ");
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		chain.doFilter(request, response);
-	
-		System.out.println("응답 발생");
-		System.out.println("ds 진입 후");
+		System.out.println("Encoding filter OUT");
 	}
 
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+		encode = fConfig.getInitParameter("encode");
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.jy.s4.board.qna;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,35 @@ import com.jy.s4.util.Pager;
 public class QnACotroller {
 	@Autowired
 	private QnAService qnaService;
+	
+	@PostMapping("summernoteDelete")
+	public ModelAndView summernoteDelete(String file, HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		boolean result = qnaService.summernoteDelete(file, session);
+		mv.addObject("msg", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	
+	@PostMapping("summernote")
+	public ModelAndView summernote(MultipartFile file, HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		String fileName = qnaService.summernote(file, session);
+		System.out.println(fileName);
+		
+		String name= session.getServletContext().getContextPath()+File.separator; 
+		name = name+"resources"+File.separator+"upload"+File.separator;
+		name = name+"qna"+File.separator+fileName;
+		System.out.println(name);
+		
+		
+		mv.addObject("msg", name);
+		mv.setViewName("common/ajaxResult");
+		
+		return mv;
+	}
+	
 	
 	@GetMapping("fileDown")
 	public ModelAndView fileDown(BoardFileDTO boardfileDTO) throws Exception{

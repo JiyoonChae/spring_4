@@ -25,6 +25,26 @@ public class NoticeService implements BoardService {
 		@Autowired
 		private FileSaver fileSaver;
 		
+		public boolean summernoteDelete(String file, HttpSession session) throws Exception{
+			String path = session.getServletContext().getRealPath("resources/upload/notice");
+			File file2 = new File(path, file);
+			boolean result = false;
+			if(file2.exists()) {
+				result = file2.delete();
+			}
+			return result;
+		}
+		
+		public String summernote(MultipartFile file, HttpSession session) throws Exception{
+			String path = session.getServletContext().getRealPath("/resources/upload/notice");
+			File file2 = new File(path);
+			
+			String fileName = fileSaver.saveCopy(file2, file);
+			
+			return fileName;
+		
+		}
+		
 	@Override
 	public int setInsert(BoardDTO boardDTO, MultipartFile[] files, HttpSession session) throws Exception {
 		

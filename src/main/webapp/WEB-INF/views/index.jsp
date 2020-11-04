@@ -20,6 +20,8 @@
   	</c:if>
   	<img alt="main image" src="./resources/images/index/bts_jin.jpg">
   </div>
+  
+   <a href="./cookie/makeCookie">MakeCookie</a>
 </div>
 
 </body>

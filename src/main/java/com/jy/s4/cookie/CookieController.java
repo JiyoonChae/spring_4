@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class CookieController {
 	
 	@GetMapping("showCookie")
-	public void showCookie(@CookieValue(value="name") Cookie cookie)throws Exception{
+	public void showCookie(@CookieValue(value="name", required=false) Cookie cookie)throws Exception{
 //		Cookie [] cookies = request.getCookies();
 //		for(Cookie cookie: cookies) {
 //			System.out.println(cookie.getName());

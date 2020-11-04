@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h1>Cookie : ${cookie.name.value}</h1>
 </body>
 </html>

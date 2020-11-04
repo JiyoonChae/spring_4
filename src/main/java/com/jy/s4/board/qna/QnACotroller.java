@@ -189,7 +189,7 @@ public class QnACotroller {
 		ModelAndView mv = new ModelAndView();
 		List<BoardDTO> ar = qnaService.getList(pager);
 		
-		ar=null;
+		//ar=null;
 		BoardDTO boardDTO = ar.get(0); // 이거뭐임??
 		QnADTO qnaDTO = (QnADTO)boardDTO;
 		

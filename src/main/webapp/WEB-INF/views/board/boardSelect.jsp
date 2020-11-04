@@ -27,8 +27,9 @@
 		</c:forEach>
 		</div>
 		
-	<a href="./${board}Update?num=${dto.num}" class="btn btn-info">Update</a>
-	<a href="./${board}Delete?num=${dto.num}" class="btn btn-warning">Delete</a>
+	<input type="button" id="update" value=Update class="btn btn-info">
+	<input type="button" title="${dto.num}" value="Delete" id="del" class="btn btn-warning"}">
+	
 	<c:if test="${board ne 'notice'}">
 	<a href="./${board}Reply?num=${dto.num}" class="btn btn-primary">Reply</a>
 		</c:if>
@@ -36,8 +37,12 @@
 	
 	<script type="text/javascript">
 		$("#update").click(function() {
-			var n = $(this).attr("title");
-			location.href="./noticeUpdate?num="+n
+			location.href="./${board}Update?num=${dto.num}";
+		})
+		
+		$("#del").click(function(){
+			var num = $(this).attr("title");
+			location.href="./${board}Delete?num="+num;
 		})
 	</script>
 	

@@ -8,5 +8,6 @@
 </head>
 <body>
 <h1>makeCookie</h1>
+<a href="./showCookie">Show Cookie</a>
 </body>
 </html>

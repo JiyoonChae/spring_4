@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/error/**")
 public class ErrorFrontController {
+	
 	@GetMapping("error404")
 	public ModelAndView error404() throws Exception{
 		ModelAndView mv = new ModelAndView();

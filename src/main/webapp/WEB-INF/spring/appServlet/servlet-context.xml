@@ -37,6 +37,24 @@
 			<mapping path="/notice/*"/>
 			<beans:ref bean="qnaInterceptor"/>	
 		</interceptor>
+		
+		<interceptor>
+			<mapping path="/qna/*"/>
+			<exclude-mapping path="/qna/qnaList" />
+			<beans:ref bean="qnaMemberInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/notice/*"/>
+			<exclude-mapping path="/notice/noticeList" />
+			<exclude-mapping path="/notice/noticeSelect" />
+			<beans:ref bean="noticeMemberInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/qnaUpdate"/>
+			<beans:ref bean="qnaInterceptor"/>
+		</interceptor>
 	</interceptors>
 	
 	

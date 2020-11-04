@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -187,6 +188,8 @@ public class QnACotroller {
 	public ModelAndView getList(Pager pager) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		List<BoardDTO> ar = qnaService.getList(pager);
+		
+		ar=null;
 		BoardDTO boardDTO = ar.get(0); // 이거뭐임??
 		QnADTO qnaDTO = (QnADTO)boardDTO;
 		
@@ -199,4 +202,6 @@ public class QnACotroller {
 		mv.setViewName("board/boardList");
 		return mv;
 	}
+	
+	
 }

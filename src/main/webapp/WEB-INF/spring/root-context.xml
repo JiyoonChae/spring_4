@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 			<!-- DB 연결 -->
@@ -24,6 +28,7 @@
 			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
 		</bean>	
 		
+	<!-- FILE 업로드 -->	
 		<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
 			<property name="defaultEncoding" value="UTF-8"></property>
 			<!-- 파일하나당 최대 크기 제한, 여러가지 파일들을 하나로 합쳐줌 -->
@@ -31,4 +36,33 @@
 			<!-- 전체 파일의 최대 크기 제한 -->
 			<property name="maxUploadSize" value="104857600"></property>
 		</bean>
+		
+	<!-- AOP 적용 -->
+		<!-- Advice 역할 클래스의 객체를 만들어서 메서드를 사용하기 -->
+		<bean class="com.jy.s4.card.Card" id="card"></bean>
+		<!-- AOP 적용 : 버스타기 전후 -->
+		<aop:config>
+			<aop:aspect id="busCard" ref="card">
+				<aop:pointcut expression="execution(* com.jy.s4.transfer.Bus.*(..))" id="busCheck"/>
+				<aop:around method="transferCard" pointcut-ref="busCheck"/>
+			</aop:aspect>
+			
+			<aop:aspect id="taxiCard" ref="card">
+				<aop:pointcut expression="execution(* com.jy.s4.transfer.Taxi.*())" id="taxiCard"/>
+				<aop:after method="cardCheck" pointcut-ref="taxiCard" />
+			</aop:aspect>
+			
+			<aop:aspect id="subwayCard" ref="card">
+				<aop:pointcut expression="execution(* com.jy.s4.transfer.Subway.take*())" id="subwayCard"/>
+				<aop:before method="cardCheck" pointcut-ref="subwayCard"/>
+				
+			</aop:aspect>
+		</aop:config>
+		
+		<!-- AOP를 이용한 transaction 처리 -->
+			<!-- transaction 관리자 설정 -->
+			<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+			<property name="dataSource" ref="dataSource"></property>
+			</bean>
+		
 </beans>

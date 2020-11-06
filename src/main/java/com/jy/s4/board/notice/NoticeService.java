@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +20,7 @@ import com.jy.s4.util.FileSaver;
 import com.jy.s4.util.Pager;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class NoticeService implements BoardService {
 		@Autowired
 		private NoticeDAO noticeDAO;

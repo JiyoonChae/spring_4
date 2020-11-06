@@ -8,61 +8,6 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-			<!-- DB 연결 -->
-	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
-		<property name="username" value="user01"> </property>
-		<property name="password" value="user01"></property>
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
-	</bean>
 	
-	<!-- sql문 만들기 : db연결정보, sql문의 위치 정보를 합치는 작업 -->
-	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
-			<property name="dataSource" ref="dataSource"></property>
-			<property name="mapperLocations" value="classpath:database/mappers/**/*Mapper.xml"></property>	
-			<property name="configLocation" value="classpath:database/config/mybatisConfig.xml"></property>
-	</bean>	
-		
-	<!-- 결과 mapping 하는 클래스 -->
-		<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession"> 
-			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
-		</bean>	
-		
-	<!-- FILE 업로드 -->	
-		<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
-			<property name="defaultEncoding" value="UTF-8"></property>
-			<!-- 파일하나당 최대 크기 제한, 여러가지 파일들을 하나로 합쳐줌 -->
-			<property name="maxUploadSizePerFile" value="10485760"></property>
-			<!-- 전체 파일의 최대 크기 제한 -->
-			<property name="maxUploadSize" value="104857600"></property>
-		</bean>
-		
-	<!-- AOP 적용 -->
-		<!-- Advice 역할 클래스의 객체를 만들어서 메서드를 사용하기 -->
-		<bean class="com.jy.s4.card.Card" id="card"></bean>
-		<!-- AOP 적용 : 버스타기 전후 -->
-		<aop:config>
-			<aop:aspect id="busCard" ref="card">
-				<aop:pointcut expression="execution(* com.jy.s4.transfer.Bus.*(..))" id="busCheck"/>
-				<aop:around method="transferCard" pointcut-ref="busCheck"/>
-			</aop:aspect>
-			
-			<aop:aspect id="taxiCard" ref="card">
-				<aop:pointcut expression="execution(* com.jy.s4.transfer.Taxi.*())" id="taxiCard"/>
-				<aop:after method="cardCheck" pointcut-ref="taxiCard" />
-			</aop:aspect>
-			
-			<aop:aspect id="subwayCard" ref="card">
-				<aop:pointcut expression="execution(* com.jy.s4.transfer.Subway.take*())" id="subwayCard"/>
-				<aop:before method="cardCheck" pointcut-ref="subwayCard"/>
-				
-			</aop:aspect>
-		</aop:config>
-		
-		<!-- AOP를 이용한 transaction 처리 -->
-			<!-- transaction 관리자 설정 -->
-			<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
-			<property name="dataSource" ref="dataSource"></property>
-			</bean>
-		
+	
 </beans>
